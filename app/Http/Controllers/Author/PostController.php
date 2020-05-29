@@ -106,6 +106,10 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
+        if($post->user_id != Auth::id()){
+            Toastr::error('Kamu tidak berhak mengakses postingan ini!' ,'Error');
+            return redirect()->back();
+        }
         return view('author.post.show', compact('post'));
     }
 
@@ -117,6 +121,10 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
+        if($post->user_id != Auth::id()){
+            Toastr::error('Kamu tidak berhak mengakses postingan ini!' ,'Error');
+            return redirect()->back();
+        }
         $categories = Category::all();
         $tags = Tag::all();
         return view('author.post.edit', compact('post','categories', 'tags'));

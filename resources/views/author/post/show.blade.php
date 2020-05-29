@@ -11,9 +11,9 @@
         <!-- Vertical Layout | With Floating Label -->
         <a href="{{ route('author.post.index') }}" class="btn btn-danger waves-effect">Kembali</a>
         @if($post->is_approved == false)
-            <button type="button" class="btn btn-success pull-right">
-                <i class="material-icons">done</i>
-                <span>Menerima</span>
+            <button type="button" class="btn btn-danger pull-right" disabled>
+                <i class="material-icons">pending_actions</i>
+                <span>Belum Diterima</span>
             </button>
         @else
             <button type="button" class="btn btn-success pull-right" disabled>
