@@ -186,6 +186,23 @@ class PostController extends Controller
         return redirect()->route('admin.post.index');
     }
 
+    public function pending(){
+        $posts = Post::where('is_approved', false)->get();
+        return view('admin.post.pending', compact('posts'));
+    }
+
+    public function approval($id){
+        $post = Post::find($id);
+        if($post->is_approved == false){
+            $post->is_approved = true;
+            $post->save();
+            Toastr::info('Post Berhasil Diterima!' ,'Sukses');
+        }else{
+            Toastr::info('Post Sudah Diterima!' ,'Sukses');
+        }
+        return redirect()->back();
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -204,4 +221,6 @@ class PostController extends Controller
         Toastr::info('Post Berhasil Dihapus :)' ,'Sukses');
         return redirect()->back();
     }
+
+
 }

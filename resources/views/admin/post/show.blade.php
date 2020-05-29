@@ -11,10 +11,14 @@
         <!-- Vertical Layout | With Floating Label -->
         <a href="{{ route('admin.post.index') }}" class="btn btn-danger waves-effect">Kembali</a>
         @if($post->is_approved == false)
-            <button type="button" class="btn btn-success pull-right">
+            <button type="button" class="btn btn-success waves-effect pull-right" onclick="approvePost({{ $post->id }})">
                 <i class="material-icons">done</i>
-                <span>Menerima</span>
+                <span>Terima</span>
             </button>
+            <form id="approval-form" method="POST" action="{{ route('admin.post.approve', $post->id) }}"  style="display: none">
+                @csrf
+                @method('PUT')
+            </form>
         @else
             <button type="button" class="btn btn-success pull-right" disabled>
                 <i class="material-icons">done</i>
@@ -86,7 +90,7 @@
 
     <!-- TinyMCE -->
     <script src="{{ asset('assets/backend/plugins/tinymce/tinymce.js') }}"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script>
         $(function () {
             //TinyMCE
@@ -107,5 +111,39 @@
             tinymce.suffix = ".min";
             tinyMCE.baseURL = '{{ asset('assets/backend/plugins/tinymce') }}';
         });
+
+        function approvePost(id){
+            const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+            })
+
+            swalWithBootstrapButtons.fire({
+            title: 'Apakah ingin menerima postingan?',
+            text: "cek lagi!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Ya, terima!',
+            cancelButtonText: 'Tidak, batalkan!',
+            reverseButtons: true
+            }).then((result) => {
+            if (result.value) {
+                event.preventDefault();
+                document.getElementById('approval-form').submit();
+            } else if (
+                /* Read more about handling dismissals below */
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire(
+                'Dibatalkan',
+                'Postingan tidak diterima :)',
+                'error'
+                )
+            }
+            })
+        }
     </script>
 @endpush
