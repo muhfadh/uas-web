@@ -7,6 +7,8 @@ use App\Post;
 use App\Tag;
 use App\Http\Controllers\Controller;
 use App\Notifications\AuthorPostAprroved;
+use App\Notifications\NewPostNotify;
+use App\Subscriber;
 use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -14,6 +16,7 @@ use Intervention\Image\Facades\Image;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Notification;
 
 class PostController extends Controller
 {
@@ -93,8 +96,15 @@ class PostController extends Controller
 
         $post->is_approved = true;
         $post->save();
+
         $post->categories()->attach($request->categories);
         $post->tags()->attach($request->tags);
+
+        $subscribers = Subscriber::all();
+        foreach($subscribers as $subscriber){
+            Notification::route('mail', $subscriber->email)
+                ->notify(new NewPostNotify($post));
+        }
         Toastr::info('Post Berhasil Disimpan :)' ,'Sukses');
         return redirect()->route('admin.post.index');
     }
@@ -197,6 +207,11 @@ class PostController extends Controller
         if($post->is_approved == false){
             $post->is_approved = true;
             $post->save();
+            $subscribers = Subscriber::all();
+            foreach($subscribers as $subscriber){
+                Notification::route('mail', $subscriber->email)
+                    ->notify(new NewPostNotify($post));
+            }
             $post->user->notify(new AuthorPostAprroved($post));
             Toastr::info('Post Berhasil Diterima!' ,'Sukses');
         }else{
