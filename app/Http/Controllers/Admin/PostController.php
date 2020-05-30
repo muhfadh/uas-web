@@ -6,6 +6,7 @@ use App\Category;
 use App\Post;
 use App\Tag;
 use App\Http\Controllers\Controller;
+use App\Notifications\AuthorPostAprroved;
 use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -196,10 +197,12 @@ class PostController extends Controller
         if($post->is_approved == false){
             $post->is_approved = true;
             $post->save();
+            $post->user->notify(new AuthorPostAprroved($post));
             Toastr::info('Post Berhasil Diterima!' ,'Sukses');
         }else{
             Toastr::info('Post Sudah Diterima!' ,'Sukses');
         }
+
         return redirect()->back();
     }
 
