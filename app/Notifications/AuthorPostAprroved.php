@@ -41,6 +41,7 @@ class AuthorPostAprroved extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
+                    ->from('admin@fsldk.com', 'Admin')
                     ->subject('Postingan kamu diterima!')
                     ->greeting('Hai, ' . $this->post->user->name. '!')
                     ->line('Postingan kamu sudah kami terima')

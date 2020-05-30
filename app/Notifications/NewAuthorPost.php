@@ -12,6 +12,7 @@ class NewAuthorPost extends Notification
     use Queueable;
 
     public $post;
+    public $user;
     /**
      * Create a new notification instance.
      *
@@ -42,8 +43,9 @@ class NewAuthorPost extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->greeting('Hai, Admin!')
+                    ->from($this->post->user->email, $this->post->user->name)
                     ->subject('Post baru butuh persetujuan!')
+                    ->greeting('Hai, Admin!')
                     ->line('Post baru oleh '.$this->post->user->name.' butuh persetujuan!')
                     ->line('untuk menyetujui klik lihat button')
                     ->line('Judul Post : '.$this->post->title)
