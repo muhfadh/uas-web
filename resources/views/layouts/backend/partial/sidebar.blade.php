@@ -60,8 +60,14 @@
                 </li>
                 <li class="{{ Request::is('admin/pending/post') ? 'active' : '' }}">
                     <a href="{{ route('admin.post.pending') }}">
-                        <i class="material-icons">library_books</i>
+                        <i class="material-icons">pending_actions</i>
                         <span>Postingan yang belum diterima</span>
+                    </a>
+                </li>
+                <li class="{{ Request::is('admin/subscriber') ? 'active' : '' }}">
+                    <a href="{{ route('admin.subscriber.index') }}">
+                        <i class="material-icons">subscriptions</i>
+                        <span>Subscribers</span>
                     </a>
                 </li>
                 <li class="header">SYSTEM</li>
