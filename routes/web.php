@@ -13,9 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::get('/', 'HomeController@index')->name('home');
 
 Route::post('subscriber', 'SubscriberController@store')->name('subscriber.store');
 // Route::get('post/{slug}','PostController@details')->name('post.details');
@@ -25,6 +23,7 @@ Auth::routes();
 //kalo ga bisa tambahin 'as' => 'admin.'
 Route::group(['as' => 'admin.','prefix' => 'admin', 'namespace' => 'Admin', 'middleware' =>['auth','admin']] , function () {
     Route::get('dashboard', 'DashboardController@index')->name('dashboard');
+    Route::get('settings', 'SettingsController@index')->name('settings');
     Route::resource('tag', 'TagController');
     Route::resource('category', 'CategoryController');
     Route::resource('post', 'PostController');

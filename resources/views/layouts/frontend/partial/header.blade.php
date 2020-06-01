@@ -1,7 +1,9 @@
 <header>
     <div class="container-fluid position-relative no-side-padding">
 
-        <a href="#" class="logo">FSLDK Malang Raya</a>
+        <a href="#" class="logo">
+            <img src="{{ Storage::disk('public')->url('gambar-fsldk/fsldk.png')}}" alt="">
+        </a>
 
         <div class="menu-nav-icon" data-nav-menu="#main-menu"><i class="ion-navicon"></i></div>
 
