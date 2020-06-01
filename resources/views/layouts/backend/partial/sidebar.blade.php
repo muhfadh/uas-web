@@ -31,7 +31,7 @@
     <!-- Menu -->
     <div class="menu">
         <ul class="list">
-            <li class="header">MAIN NAVIGATION</li>
+            <li class="header">NAVIGASI UTAMA</li>
 
             @if (Request::is('admin*'))
                 <li class="{{ Request::is('admin/dashboard') ? 'active' : '' }}">
@@ -70,7 +70,14 @@
                         <span>Subscribers</span>
                     </a>
                 </li>
-                <li class="header">SYSTEM</li>
+                <li class="header">SISTEM</li>
+                <li class="{{ Request::is('admin/settings') ? 'active' : '' }}">
+                    <a href="{{ route('admin.settings') }}">
+                        <i class="material-icons">settings</i>
+                        <span>Pengaturan</span>
+                    </a>
+                </li>
+
                 <li>
                     <a class="dropdown-item" href="{{ route('logout') }}"
                             onclick="event.preventDefault();
