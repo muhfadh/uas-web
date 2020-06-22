@@ -23,7 +23,10 @@ Route::post('subscriber', 'SubscriberController@store')->name('subscriber.store'
 
 Route::get('/search', 'SearchController@search')->name('search');
 
-Auth::routes();
+Auth::routes([
+    //nonaktifkan register
+    'register' => false,
+]);
 
 
 Route::group(['middleware'=>['auth']], function(){

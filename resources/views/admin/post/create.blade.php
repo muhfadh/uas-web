@@ -17,7 +17,7 @@
                 <div class="card">
                     <div class="header">
                         <h2>
-                            Tambah Kategori Baru
+                            Tambah Postingan Baru
                         </h2>
                     </div>
                     <div class="body">

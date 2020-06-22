@@ -15,17 +15,17 @@ class UsersTableSeeder extends Seeder
     {
         DB::table('users')->insert([
             'role_id' => '1',
-            'name' => 'FSLDK.Admin',
+            'name' => 'Admin',
             'username' => 'admin',
-            'email' => 'admin@fsldk.com',
-            'password' => Hash::make('fsldkmalang'),
+            'email' => 'admin@blog.com',
+            'password' => Hash::make('rahasia'),
         ]);
         DB::table('users')->insert([
             'role_id' => '2',
-            'name' => 'FSLDK.Author',
-            'username' => 'author',
-            'email' => 'author@fsldk.com',
-            'password' => Hash::make('authorfsldk'),
+            'name' => 'Fadhlan',
+            'username' => 'fadh',
+            'email' => 'fadhlan@umm.ac.id',
+            'password' => Hash::make('rahasiabanget'),
         ]);
     }
 }

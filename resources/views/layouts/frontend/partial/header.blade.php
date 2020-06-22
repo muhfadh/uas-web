@@ -1,9 +1,7 @@
 <header>
     <div class="container-fluid position-relative no-side-padding">
 
-        <a href="#" class="logo">
-            <img src="{{ Storage::disk('public')->url('gambar-fsldk/fsldk.png')}}" alt="">
-        </a>
+        <a href="{{ route('home') }}" class="logo">{{ env('APP_NAME') }}</a>
 
         <div class="menu-nav-icon" data-nav-menu="#main-menu"><i class="ion-navicon"></i></div>
 
@@ -29,5 +27,5 @@
             </form>
         </div>
 
-    </div><!-- conatiner -->
+    </div><!-- container -->
 </header>

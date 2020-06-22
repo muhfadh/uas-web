@@ -1,6 +1,6 @@
 @extends('layouts.frontend.app')
 
-@section('title', 'Posts')
+@section('title', 'Semua Postingan')
 
 @push('css')
     <link rel="stylesheet" href="{{ asset('assets/frontend/css/category/styles.css') }}">
@@ -22,6 +22,7 @@
 
         <div class="row">
             @foreach ($posts as $post)
+                @if($post->is_approved == true && $post->status == true)
                 <div class="col-lg-4 col-md-6">
                     <div class="card h-100">
 
@@ -37,7 +38,7 @@
                                     <div class="right-area">
                                         <a class="name" href="#"><b>{{ $post->user->name }}</b></a>
                                         <div class="column"></div>
-                                        <p>{!! $post->body !!}</p>
+                                        <p>{!! Str::limit($post->body,150) !!}</p>
                                         <div class="column"></div>
                                         <h6 class="date" href="#">{{ $post->created_at->toFormattedDateString() }}</h6>
                                     </div>
@@ -55,7 +56,6 @@
                                         </form>
                                         @endguest
                                     </li>
-                                    <li><a href="#"><i class="ion-chatbubble"></i>6</a></li>
                                     <li><a href="#"><i class="ion-eye"></i>{{ $post->view_count }}</a></li>
                                 </ul>
 
@@ -65,6 +65,7 @@
 
                     </div><!-- card -->
                 </div><!-- col-lg-4 col-md-6 -->
+                @endif
             @endforeach
         </div><!-- row -->
 
