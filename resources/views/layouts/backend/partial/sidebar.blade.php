@@ -70,7 +70,7 @@
                 <li class="{{ Request::is('admin/favorite') ? 'active' : '' }}">
                     <a href="{{ route('admin.favorite.index') }}">
                         <i class="material-icons">favorite</i>
-                        <span>Favorit</span>
+                        <span>Postingan Favorit</span>
                     </a>
                 </li>
                 <li class="{{ Request::is('admin/subscriber') ? 'active' : '' }}">
@@ -110,13 +110,13 @@
             <li class="{{ Request::is('author/post*') ? 'active' : '' }}">
                 <a href="{{ route('author.post.index') }}">
                     <i class="material-icons">library_books</i>
-                    <span>Posts</span>
+                    <span>Postingan</span>
                 </a>
             </li>
             <li class="{{ Request::is('author/favorite') ? 'active' : '' }}">
                 <a href="{{ route('author.favorite.index') }}">
                     <i class="material-icons">favorite</i>
-                    <span>Favorit</span>
+                    <span>Postingan Favorit</span>
                 </a>
             </li>
             <li class="header">SISTEM</li>
