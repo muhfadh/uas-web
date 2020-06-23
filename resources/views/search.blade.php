@@ -39,7 +39,7 @@
                                             <div class="right-area">
                                                 <a class="name" href="#"><b>{{ $post->user->name }}</b></a>
                                                 <div class="column"></div>
-                                                <p>{!! $post->body !!}</p>
+                                                <p>{!! Str::limit($post->body,120) !!}</p>
                                                 <div class="column"></div>
                                                 <h6 class="date" href="#">{{ $post->created_at->toFormattedDateString() }}</h6>
                                             </div>

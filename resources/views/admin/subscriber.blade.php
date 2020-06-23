@@ -16,7 +16,7 @@
             <div class="card">
                 <div class="header">
                     <h2>
-                        Subscribers FSLDK MALANG RAYA
+                        Subscribers Blog
                         <span class="badge bg-green">{{ $subscribers->count() }}</span>
                     </h2>
                 </div>

@@ -22,7 +22,7 @@
             <div class="card">
                 <div class="header">
                     <h2>
-                        Post FSLDK MALANG RAYA
+                        Post Blog
                         <span class="badge bg-green">{{ $posts->count() }}</span>
                     </h2>
                 </div>
