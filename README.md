@@ -1,3 +1,19 @@
+## SETTINGS
+-tanpa import sql (data masih kosong)-
+
+1. sesuaikan data UsersTableSeeder (utk login)
+2. jalankan php artisan migrate
+3. jalankan php artisan db:seed
+4. jalankan php artisan storage:link (untuk simpan file gambar)
+5. silakan login dari data UsersTableSeeder yg sudah di seed/insert
+
+
+-dengan import sql (data sudah ada)-
+1. import sql seperti biasa
+2. jalankan php artisan storage:link (untuk simpan file gambar)
+3. login dengan data dari UsersTableSeeder
+
+
 <p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
 
 <p align="center">
