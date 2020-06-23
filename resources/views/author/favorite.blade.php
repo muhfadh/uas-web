@@ -10,19 +10,13 @@
 
 @section('content')
 <div class="container-fluid">
-    <div class="block-header">
-        <a class="btn btn-primary waves-effect" href="{{ route('author.post.create') }}">
-            <i class="material-icons">add</i>
-            <span>Tambah Post Baru</span>
-        </a>
-    </div>
     <!-- Exportable Table -->
     <div class="row clearfix">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="card">
                 <div class="header">
                     <h2>
-                        Post Blog
+                        Postingan Favorit
                         <span class="badge bg-green">{{ $posts->count() }}</span>
                     </h2>
                 </div>
@@ -34,11 +28,8 @@
                                     <th>ID</th>
                                     <th>Judul</th>
                                     <th>Author</th>
+                                    <th><i class="material-icons">favorite</i></th>
                                     <th><i class="material-icons">visibility</i></th>
-                                    <th>Diterima ?</th>
-                                    <th>Status</th>
-                                    <th>Dibuat</th>
-                                    <th>Diperbarui</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -47,11 +38,8 @@
                                     <th>ID</th>
                                     <th>Judul</th>
                                     <th>Author</th>
+                                    <th><i class="material-icons">favorite</i></th>
                                     <th><i class="material-icons">visibility</i></th>
-                                    <th>Diterima ?</th>
-                                    <th>Status</th>
-                                    <th>Dibuat</th>
-                                    <th>Diperbarui</th>
                                     <th>Aksi</th>
                                 </tr>
                             </tfoot>
@@ -61,36 +49,17 @@
                                         <td>{{ $key + 1 }}</td>
                                         <td>{{ Str::limit($post->title, 10) }}</td>
                                         <td>{{ $post->user->name }}</td>
+                                        <td>{{ $post->favorite_to_users->count() }}</td>
                                         <td>{{ $post->view_count }}</td>
-                                        <td>
-                                            @if($post->is_approved == true)
-                                                <span class="badge bg-blue">Diterima</span>
-                                            @else
-                                                <span class="badge bg-pink">Ditunda</span>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            @if($post->status == true)
-                                                <span class="badge bg-blue">Diterbitkan</span>
-                                            @else
-                                                <span class="badge bg-pink">Ditunda</span>
-                                            @endif
-                                        </td>
-                                        <td>{{ $post->created_at }}</td>
-                                        <td>{{ $post->updated_at }}</td>
                                         <td class="text-center">
                                             <a href="{{ route('author.post.show', $post->id) }}" class="btn btn-primary waves-effect">
                                                 <i class="material-icons">visibility</i>
                                             </a>
-                                            <a href="{{ route('author.post.edit', $post->id) }}" class="btn btn-info waves-effect">
-                                                <i class="material-icons">edit</i>
-                                            </a>
-                                            <button class="btn btn-danger waves-effect" type="button" onclick="deletePost({{ $post->id }})">
+                                            <button class="btn btn-danger waves-effect" type="button" onclick="removePost({{ $post->id }})">
                                                 <i class="material-icons">delete</i>
                                             </button>
-                                            <form id="delete-form-{{ $post->id }}" action="{{ route('author.post.destroy', $post->id )}}" method="POST" style="display: none;">
+                                            <form id="remove-form-{{ $post->id }}" action="{{ route('post.favorite', $post->id )}}" method="POST" style="display: none;">
                                                 @csrf
-                                                @method('DELETE')
                                             </form>
                                         </td>
                                     </tr>
@@ -121,7 +90,7 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
 <script>
-    function deletePost(id){
+    function removePost(id){
         const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
             confirmButton: 'btn btn-success',
@@ -131,7 +100,7 @@
         })
 
         swalWithBootstrapButtons.fire({
-        title: 'Apakah ingin menghapus Kategori?',
+        title: 'Apakah ingin menghapus postingan favorit ini?',
         text: "cek lagi!",
         icon: 'warning',
         showCancelButton: true,
@@ -141,14 +110,14 @@
         }).then((result) => {
         if (result.value) {
             event.preventDefault();
-            document.getElementById('delete-form-'+id).submit();
+            document.getElementById('remove-form-'+id).submit();
         } else if (
             /* Read more about handling dismissals below */
             result.dismiss === Swal.DismissReason.cancel
         ) {
             swalWithBootstrapButtons.fire(
             'Dibatalkan',
-            'Kategori tidak dihapus :)',
+            'postingan favorit tidak dihapus :)',
             'error'
             )
         }
